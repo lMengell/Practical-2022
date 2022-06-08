@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "The Test";
+}
+
+<div class="row">
+    <div class="jumbotron">
+        <h1>The Test!</h1>
+        <p>The test is simple: populate a list of "Contacts" (people) into the "Results" view, and provide a filter to limit the results based on the persons name.</p>
+        <p>The entity class has been prepared for your already, the ViewModel should really be of type <code>List&lt;InterviewTest.Models.Contact&gt;</code>.</p>
+        <p>The data is populated each time the website is started (using GenFu - a random content generator), into an <code>ICollection&lt;InterviewTest.Models.Contact&gt;</code> called <code>FakeDb.Contacts</code>.</p>
+        <p>To get started look at <strong>HomeController.cs</strong> (MVC Views / Partial Views) or <strong>api/ContactsController.cs</strong> where <code>FakeDb</code> has already been added via DI.</p>
+        <hr />
+        <h2>Populating your view</h2>
+        <p>
+            We use ASP.Net MVC with Angular (currently version 14), so you should use either (in increasing order of greatness):
+            <dl class="dl-horizontal">
+                <dt>Basic MVC <span class="badge badge-danger">GOOD</span></dt>
+                <dd>
+                    A standard MVC page using a controller and a view.<br />
+                    With this method we'd expect the page would be pre-populated with any data, and any subsequent filters would ask the page to be re-loaded.
+                </dd>
+                <dt>MVC with Partial Views <span class="badge badge-warning">BETTER</span></dt>
+                <dd>
+                    A standard MVC page using a controller and a main view.<br />
+                    A partial view would be presented with the data (already filtered) any subsequent filters would only reload the partial view.
+                </dd>
+                <dt>Angular <span class="badge badge-success">BEST</span></dt>
+                <dd>
+                    Create an angular project using the <a href="https://angular.io/guide/setup-local" target="_blank">angular CLI</a>.<br />
+                    You can test that the API data is accessible now by calling GET <a href="https://localhost:44363/api/contacts" target="_blank">https://localhost:44363/api/contacts</a><br />
+                    Feel free to create the angular site on the side - no need to strip out the MVC boilerplate on this site (it'll just waste time)
+                </dd>
+            </dl>
+        </p>
+        <h2>What are we looking for?</h2>
+        <p>
+            The test is deliberately open ended.<br />
+            At a minumum you should be able to some &quot;contacts&quot; in the clients browser.<br />
+            From there spend your time however you feel represents your strength:
+            <ul>
+                <li>spend time on the backend adding server side features or extending the data</li>
+                <li>angular/partial views for asynchrous loading</li>
+                <li>css for styling or animation</li>
+            </ul>
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md">
+        <h2>Filtering</h2>
+        <p>
+            The example of "Simon Jay", should be able to be returned for the following search terms:
+            <ul>
+                <li>Simon</li>
+                <li>Jay</li>
+                <li>Simon Jay</li>
+                <li>Jay Simon</li>
+                <li>sIMON jAY</li>
+                <li>Sim Ja</li>
+                <li>imo ja</li>
+                <li>imo</li>
+            </ul>
+            <small>HINT: Split the string on the space and check both FirstName OR LastName</small>
+        </p>
+    </div>
+    <div class="col-md">
+        <h2>Ideas</h2>
+        <p>
+            Extra stars / smiley faces will be awarded if you can include the following (but aren't required at all):
+            <ul>
+                <li>A remove button on each row: give the ability to delete / hide a person</li>
+                <li>Pagination (page size, next &amp; previous result sets)</li>
+                <li>A row count</li>
+                <li>The ability to add a new record</li>
+                <li>Animation / loading spinners (add a Task.Delay or Thread.Sleep so it's visible)</li>
+            </ul>
+        </p>
+    </div>
+</div>
