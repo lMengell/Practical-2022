@@ -29,7 +29,7 @@ namespace InterviewTest
             {
                 builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
             }));
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSingleton<FakeDb>(this.GenerateDatabase());
         }
 
