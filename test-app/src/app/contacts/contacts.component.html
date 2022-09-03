@@ -1,0 +1,9 @@
+<section>
+    <h2>Contacts</h2>
+
+    <contacts-list *ngIf="!isAddOrEditState" 
+        (editContact)="editContact($event)"
+        (removeContact)="removeContact($event)"></contacts-list>
+
+    <contact-details *ngIf="isAddOrEditState" (exit)="returnToContactList()" [contact]="contact"></contact-details>
+</section>

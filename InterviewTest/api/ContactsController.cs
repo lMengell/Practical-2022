@@ -1,4 +1,5 @@
 ﻿using InterviewTest.Models;
+using InterviewTest.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,10 +24,80 @@ namespace InterviewTest.Api
             _db = db;
         }
 
-        public IActionResult Get()
+        [HttpGet]
+        public IActionResult Search(string searchText, int pageNumber, int pageSize)
         {
-            return Ok(_db.Contacts.Take(10).ToList());
+            var contacts = new List<ContactModel>();
+
+            var skipCount = (pageNumber - 1) * pageSize;
+            skipCount = skipCount >= 0 ? skipCount : 0;
+
+            if (string.IsNullOrWhiteSpace(searchText))
+                contacts = _db.Contacts.ToList();
+            else
+            {
+                var searchTerms = searchText.Trim().ToLower().Split(" ");
+
+                foreach (var contact in _db.Contacts.ToList())
+                {
+                    if (searchTerms.Any(search =>
+                        contact.FirstName.ToLower().Contains(search) ||
+                        contact.LastName.ToLower().Contains(search)
+                        ))
+                        contacts.Add(contact);
+                }
+            }
+
+            return Ok(new BaseResponse<ContactModel>()
+            {
+                TotalItems = contacts.Count,
+                Items = contacts.Skip(skipCount).Take(pageSize).ToList()
+            });
         }
 
+        [HttpPut]
+        public IActionResult Update([FromBody] ContactModel updatedContact)
+        {
+            var contact = _db.Contacts.FirstOrDefault(contact => contact.Id == updatedContact.Id);
+
+            if (contact == null)
+                return BadRequest($"{updatedContact.Id} not found");
+
+            contact.FirstName = updatedContact.FirstName;
+            contact.LastName = updatedContact.LastName;
+            contact.PhoneNumber = updatedContact.PhoneNumber;
+            contact.School = updatedContact.School;
+            contact.DateOfBirth = updatedContact.DateOfBirth;
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] ContactModel contact)
+        {
+            if(string.IsNullOrWhiteSpace(contact.FirstName) ||
+                string.IsNullOrWhiteSpace(contact.LastName))
+            {
+                return BadRequest("Required details of contact were missing");
+            }
+
+            contact.Id = _db.Contacts.Max(contact => contact.Id) + 1;
+            _db.Contacts.Add(contact);
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int contactId)
+        {
+            var contact = _db.Contacts.FirstOrDefault(contact => contact.Id == contactId);
+
+            if (contact == null)
+                return BadRequest($"Contact with Id {contactId} does not exist");
+
+            _db.Contacts.Remove(contact);
+
+            return Ok();
+        }
     }
 }
