@@ -1,9 +1,49 @@
-<h4>Details</h4>
+<div class="contact-details" *ngIf="!isLoading">
+    <div class="contact-details-header">
+        <h3>Details</h3>
+    </div>
 
-<button type="button" (click)="returnToContactList()">Go Back</button>
+    <div class="contact-form">
+        <div class="contact-form-items">
+            <div class="contact-form-item">
+                <p>First Name</p>
+                <input [ngClass]="stringErrorClass(contact.firstName)" type="text" [(ngModel)]="contact.firstName">
+            </div>
 
-<p>{{contact.firstName}}</p>
-<p>{{contact.lastName}}</p>
-<p>{{contact.dateOfBirth}}</p>
-<p>{{contact.school}}</p>
-<p>{{contact.phoneNumber}}</p>
+            <div class="contact-form-item">
+                <p>Last Name</p>
+                <input [ngClass]="stringErrorClass(contact.lastName)" type="text" [(ngModel)]="contact.lastName">
+            </div>
+
+            <div class="contact-form-item">
+                <p>Date of Birth</p>
+                <input type="datetime" [(ngModel)]="contact.dateOfBirth">
+            </div>
+
+            <div class="contact-form-item">
+                <p>School</p>
+                <input type="text" [(ngModel)]="contact.school">
+            </div>
+
+            <div class="contact-form-item">
+                <p>Phone Number</p>
+                <input type="text" [(ngModel)]="contact.phoneNumber">
+            </div>
+        </div>
+
+        <div class="contact-picture">
+            <img src="../../assets/pictures/blank-profile-photo.jpeg">
+        </div>
+    </div>
+
+    <div class="contact-details-buttons">
+        <button class="btn-confirm" (click)="saveContact()">Save</button>
+        <button class="btn-cancel" type="button" (click)="returnToContactList()">Cancel</button>
+    </div>
+</div>
+
+<div *ngIf="isLoading">
+    <p *ngIf="!isSavedSuccessfully">LOADING AND SPINNING... :)</p>
+
+    <p *ngIf="isSavedSuccessfully">Saved successfully! Redirecting back to contacts...</p>
+</div>

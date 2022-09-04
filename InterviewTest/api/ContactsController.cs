@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace InterviewTest.Api
@@ -68,6 +69,11 @@ namespace InterviewTest.Api
             contact.PhoneNumber = updatedContact.PhoneNumber;
             contact.School = updatedContact.School;
             contact.DateOfBirth = updatedContact.DateOfBirth;
+
+            var index = _db.Contacts.IndexOf(contact);
+            _db.Contacts[index] = contact;
+
+            Thread.Sleep(3000);
 
             return Ok();
         }

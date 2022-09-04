@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Contact } from '../models/contact';
 import { ContactService } from '../contact.service';
 
@@ -19,10 +19,7 @@ export class ContactsComponent {
     this.isAddOrEditState = false;
   }
 
-  editContact(contact: Contact): void {
-    console.log(contact);
-    console.log("Editting contact Id: " + contact.id);
-    
+  editContact(contact: Contact): void {    
     this.contact = contact;
     this.isAddOrEditState = true;
   }
@@ -32,5 +29,8 @@ export class ContactsComponent {
     .subscribe();
   }
   
-  
+  addContact(): void {
+    this.contact = {} as Contact;
+    this.isAddOrEditState = true;
+  }
 }

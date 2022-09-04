@@ -77,9 +77,7 @@ export class ContactService {
 
   /** PUT: update the hero on the server */
   updateContact(contact: Contact): Observable<any> {
-    return this.http.put(this.contactsUrl, contact, this.httpOptions).pipe(
-      catchError(this.handleError<any>('updateContact'))
-    );
+    return this.http.put(this.contactsUrl, contact, this.httpOptions);
   }
 
   /**

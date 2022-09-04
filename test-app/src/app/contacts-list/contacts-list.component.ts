@@ -9,16 +9,18 @@ import { ContactService } from '../contact.service';
 })
 export class ContactsListComponent implements OnInit {
   
-  @Output() editContact = new EventEmitter<Contact>();
-  @Output() removeContact = new EventEmitter<number>();
+  @Output() editContactEmitter = new EventEmitter<Contact>();
+  @Output() removeContactEmitter = new EventEmitter<number>();
+  @Output() addContactEmitter = new EventEmitter<void>();
 
-  contacts: Contact[] = [];
+  @Input()contacts: Contact[] = [];
   searchText: string = "";
   pageNumber: number = 1;
   pageSize: number = 10;
   totalResults: number = 0;
 
   tableRowToggle: boolean = true;
+  isLoading: boolean = false;
 
   constructor(private contactService: ContactService) { }
 
@@ -27,14 +29,17 @@ export class ContactsListComponent implements OnInit {
   }
 
   edit(contact: Contact): void {
-    console.log("Emitting edit contact"); 
-    console.log(contact);
-
-    this.editContact.emit(contact);
+    this.editContactEmitter.emit(contact);
   }
 
   remove(contactId: number): void {
-    this.removeContact.emit(contactId);
+    this.isLoading = true;
+    this.removeContactEmitter.emit(contactId);
+
+    setTimeout(() => {
+      this.searchContacts();
+      this.isLoading = false;
+    }, 3000)
   }
 
   searchChanged(): void {
@@ -42,30 +47,13 @@ export class ContactsListComponent implements OnInit {
   }
 
   searchContacts(): void {
-    console.log('GetContacts ContactsList');
+    this.pageNumber = 1;
+
     this.contactService.searchContats(this.searchText, this.pageNumber, this.pageSize)
     .subscribe(data => {
       this.contacts = data.items;
       this.totalResults = data.totalItems;
     } );
-  }
-
-  showingResults(): string {
-    let start = ((this.pageNumber - 1) * this.pageSize) + 1;
-    let end = (this.pageNumber * this.pageSize);
-
-    if(end > this.totalResults)
-      end = this.totalResults;
-
-    return `Showing results ${start} to ${end}`;
-  }
-
-  enableNextPage(): boolean {
-    return (this.pageNumber * this.pageSize) <= this.totalResults;
-  }
-
-  enablePreviousPage(): boolean {
-    return this.pageNumber > 1;
   }
 
   nextPage(): void {
@@ -84,8 +72,13 @@ export class ContactsListComponent implements OnInit {
     return this.tableRowToggle ? "row-type-1" : "row-type-2";
   }
 
-  pageSizeChanged(): void {
+  pageSizeChanged(pageSize: number): void {
+    this.pageSize = pageSize;
+    this.pageNumber = 1;
     this.searchContacts();
   }
 
+  addContact(): void {
+    this.addContactEmitter.emit();
+  }
 }

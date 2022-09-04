@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { ContactsComponent } from './contacts/contacts.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactDetailsComponent,
     ContactsListComponent,
-    ContactsComponent
+    ContactsComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

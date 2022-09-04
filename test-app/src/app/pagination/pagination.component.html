@@ -1,0 +1,18 @@
+<div class="contact-pagination">
+    <div>
+        <button (click)="previousPage()" [disabled]="!showPreviousPage()">&lt;</button>
+        <span class="page-number">{{pageNumber}}</span>
+        <button (click)="nextPage()" [disabled]="!showNextPage()">&gt;</button>
+    </div>
+    <div>
+        <p>{{showingResults()}}</p>
+    </div>
+    <div>
+        <select [(ngModel)]="pageSize" (ngModelChange)="pageSizeChange()">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+        </select>
+    </div>  
+</div>

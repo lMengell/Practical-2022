@@ -1,0 +1,68 @@
+.contact-display {
+    display:inline-flex;
+}
+
+.contact-details {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width:800px;
+    padding:30px;
+    margin: 50px 0;
+}
+
+.contact-details-header h3 {
+    margin: 0;
+    text-decoration: underline;
+    width: auto;
+}
+
+.contact-form {
+    display: inline-flex;   
+}
+
+.contact-details .contact-form-items {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.contact-form-item {
+    width: 49%;
+}
+
+.contact-detail p {
+    font-weight: 500;
+}
+
+.contact-details-buttons {
+    display:flex;
+    justify-content: space-between;
+    margin-top:30px;
+    width:270px;
+}
+
+.contact-details-buttons button {
+    width:120px;
+    height:30px;
+}
+
+.btn-confirm {
+    background-color: greenyellow;
+}
+
+.btn-cancel {
+    background-color: lightcoral;
+}
+
+.contact-picture {
+    padding:20px 50px 20px 20px;
+}
+
+.contact-picture img {
+    width:200px;
+    height:200px;
+    border-radius: 50%;
+}
+
+.input-error {
+    background-color: coral;
+}

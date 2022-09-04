@@ -16,30 +16,92 @@ table tr td {
     background-color: lightcoral;
 }
 
-.contact-pagination {
-    display: flex;
-    justify-content: space-between;
-}
-
-.contact-pagination button {
-    border:none;
-    padding: 15px 32px;
-    text-align: center;
-}
-
-.contact-pagination button:hover {
-    background-color: lightblue;
-}
-
-.contact-pagination select {
-    width:100px;
-    height:40px;
-    font-weight: 500;
-    font-size: 20px;
-    text-align: center;
-}
-
 .contact-search {
     height:30px;
     width:240px;
+}
+
+.contact-tiles {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contact-tile {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width:280px;
+    margin-top: 50px;
+    padding:20px;
+    height:120px;
+    margin-right:40px;
+    border-bottom: 4px green solid;
+}
+
+.contact-tile-img {
+    position:relative;
+    top:-50px;
+    left:5px;
+}
+
+.contact-tile img {
+    border-radius: 50%;
+    width:100px;
+    height:100px;
+}
+
+.contact-tile-name {
+    position:relative;
+    top: -100px;
+    left: 130px;
+}
+
+.contact-tile-options {
+    position:relative;
+    top:-200px;
+}
+
+.contact-tile-details {
+    position:relative;
+    display:inline-flex;
+    width:250px;
+    top:-120px;
+    left: 20px;   
+}
+
+.contact-tile-details .titles {
+    font-weight: 500;
+    margin-right:63px;
+}
+
+.contact-tile-options {
+    position:relative;
+    left:260px;
+    top:-170px;
+    font-weight:800;
+}
+
+.contact-tile-options .option-items {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    font-weight:500;
+}
+
+.contact-tile-options:hover .option-items {
+    display:block;
+}
+
+.contact-tile-options .option-items p:hover {
+    background: gray;
+    cursor:default;
+}
+
+.btn-confirm {
+    background-color: greenyellow;
+    height: 30px;
+    width: 120px;
+    margin-left: 30px;
 }
